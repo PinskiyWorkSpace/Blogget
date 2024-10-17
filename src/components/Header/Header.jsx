@@ -7,6 +7,7 @@ import Search from './Search';
 import Auth from './Auth';
 
 export const Header = () => {
+  console.log('Header');
   return (
     <header className={style.header}>
       <Layout>
