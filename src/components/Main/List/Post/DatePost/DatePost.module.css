@@ -6,11 +6,9 @@
   color: #8f8f8f;
 }
 
-
 @media (min-width: 580px) {
-.date {
+  .date {
     font-size: 16px;
     padding-right: 10px;
   }
 }
-
