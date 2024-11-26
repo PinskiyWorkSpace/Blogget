@@ -17,4 +17,3 @@ searchParams.append('scope', SCOPE);
 
 export const urlAuth = `${URL_AUTH}${searchParams.toString()}`;
 
-

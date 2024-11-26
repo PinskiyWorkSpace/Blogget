@@ -2,13 +2,15 @@ import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import {urlAuth} from '../../../api/auth';
 import {Text} from '../../../UI/Text';
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 
 import {ReactComponent as LoginIcon} from './img/login.svg';
-import {useAuth} from '../../../hooks/useAuth';
+import {tokenContext} from '../../../context/tokenContext';
+import {authContext} from '../../../context/authContext';
 
-export const Auth = ({token, delToken}) => {
-  const [auth, setAuth] = useAuth(token);
+export const Auth = () => {
+  const {delToken} = useContext(tokenContext);
+  const {auth, clearAuth} = useContext(authContext);
   const [logout, setLogout] = useState(false);
 
   const logoutBtn = () => {
@@ -17,7 +19,7 @@ export const Auth = ({token, delToken}) => {
 
   const loginOut = () => {
     delToken();
-    setAuth({});
+    clearAuth();
     window.location.href = 'http://localhost:3000/auth';
   };
 
@@ -26,10 +28,19 @@ export const Auth = ({token, delToken}) => {
       {auth.name ? (
         <>
           <button className={style.btn} onClick={logoutBtn}>
-            <img className={style.img} src={auth.img} title={auth.name} alt={`Аватар ${auth.name}`}></img>
+            <img
+              className={style.img}
+              src={auth.img}
+              title={auth.name}
+              alt={`Аватар ${auth.name}`}>
+            </img>
           </button>
-          {logout && (<button className={style.logout}
-            onClick={loginOut}>Выйти</button>)}
+          {logout && (
+            <button
+              className={style.logout}
+              onClick={loginOut}>
+              Выйти
+            </button>)}
         </>
 
       ) : (
