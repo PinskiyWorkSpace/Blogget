@@ -8,12 +8,20 @@ import BtnDelete from './BtnDelete';
 
 
 export const Post = ({postData}) => {
-  const {title, author, ups, thumbnail, created_utc: date} = postData;
+  const {
+    id,
+    title,
+    author,
+    ups,
+    thumbnail,
+    created_utc: date
+  } = postData;
+
   return (
 
     <li className={style.post}>
       <ImagePost title={title} thumbnail={thumbnail}/>
-      <Content title={title} author={author} />
+      <Content title={title} author={author} id={id}/>
       <Rating ups={ups}/>
       <DatePost date={date}/>
       <BtnDelete />
