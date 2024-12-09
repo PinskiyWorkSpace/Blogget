@@ -1,10 +1,10 @@
-import {useState, useEffect, useContext} from 'react';
-import {URL_API} from '../api/const';
-import {tokenContext} from '../context/tokenContext';
+import { useState, useEffect } from 'react';
+import { URL_API } from '../api/const';
+import { getToken } from '../api/token';
 
 export const useCommentsData = (id) => {
   const [commentsData, setCommentsData] = useState([]);
-  const {token} = useContext(tokenContext);
+  const token = getToken();
 
   useEffect(() => {
     if (!token) return;
@@ -24,7 +24,7 @@ export const useCommentsData = (id) => {
         ([
           {
             data: {
-              children: [{data: post}],
+              children: [{ data: post }],
             },
           },
           {

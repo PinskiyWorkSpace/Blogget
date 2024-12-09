@@ -1,24 +1,24 @@
 import style from './Auth.module.css';
 import PropTypes from 'prop-types';
-import {urlAuth} from '../../../api/auth';
-import {Text} from '../../../UI/Text';
-import {useState, useContext} from 'react';
-
-import {ReactComponent as LoginIcon} from './img/login.svg';
-import {tokenContext} from '../../../context/tokenContext';
-import {authContext} from '../../../context/authContext';
+import { urlAuth } from '../../../api/auth';
+import { Text } from '../../../UI/Text';
+import { useState, useContext } from 'react';
+import { ReactComponent as LoginIcon } from './img/login.svg';
+import { authContext } from '../../../context/authContext';
+import { useDispatch } from 'react-redux';
+import { deleteToken } from '../../../store';
 
 export const Auth = () => {
-  const {delToken} = useContext(tokenContext);
-  const {auth, clearAuth} = useContext(authContext);
+  const { auth, clearAuth } = useContext(authContext);
   const [logout, setLogout] = useState(false);
+  const dispatch = useDispatch();
 
   const logoutBtn = () => {
     setLogout(!logout);
   };
 
   const loginOut = () => {
-    delToken();
+    dispatch(deleteToken());
     clearAuth();
     window.location.href = 'http://localhost:3000/auth';
   };
@@ -44,16 +44,15 @@ export const Auth = () => {
         </>
 
       ) : (
-          <Text className={style.authLink} As='a' href={urlAuth}>
-            <LoginIcon className={style.svg} />
-          </Text>
+        <Text className={style.authLink} As='a' href={urlAuth}>
+          <LoginIcon className={style.svg} />
+        </Text>
       )}
     </div>
   );
 };
 
 Auth.propTypes = {
-  token: PropTypes.string,
   delToken: PropTypes.func,
 };
 
