@@ -1,14 +1,14 @@
 import ReactDOM from 'react-dom';
 import style from './Modal.module.css';
 import PropTypes from 'prop-types';
-import {ReactComponent as CloseIcon} from './img/close.svg';
+import { ReactComponent as CloseIcon } from './img/close.svg';
 import Markdown from 'markdown-to-jsx';
-import {useEffect, useRef} from 'react';
-import {useCommentsData} from '../../hooks/useCommentsData';
+import { useEffect, useRef } from 'react';
+import { useCommentsData } from '../../hooks/useCommentsData';
 import Comments from './Comments';
 import FormComment from './FormComment';
 
-export const Modal = ({id, closeModal}) => {
+export const Modal = ({ id, closeModal }) => {
   const overlayRef = useRef(null);
   const [commentsData] = useCommentsData(id);
   const [post, comments] = commentsData;

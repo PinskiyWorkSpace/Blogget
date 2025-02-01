@@ -37,7 +37,7 @@
 }
 
 .delete:focus {
-  outline-color:var(--black);
+  outline-color: var(--black);
 }
 
 .delete:active {
@@ -70,6 +70,7 @@
   .linkPost {
     font-size: 26px;
   }
+
   .linkPost:hover {
     color: #cc6633;
   }

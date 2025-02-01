@@ -21,7 +21,7 @@
 }
 
 .delete:focus {
-  outline-color:var(--black);
+  outline-color: var(--black);
 }
 
 .delete:active {
@@ -41,5 +41,3 @@
     height: 25px;
   }
 }
-
-

@@ -1,2 +1,2 @@
-import {ImagePost} from './ImagePost';
+import { ImagePost } from './ImagePost';
 export default ImagePost;

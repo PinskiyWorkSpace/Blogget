@@ -1,2 +1,2 @@
-import {DatePost} from './DatePost';
+import { DatePost } from './DatePost';
 export default DatePost;
