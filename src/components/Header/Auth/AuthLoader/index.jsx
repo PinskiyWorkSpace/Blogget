@@ -1,2 +1,2 @@
-import {AuthLoader} from './AuthLoader';
+import { AuthLoader } from './AuthLoader';
 export default AuthLoader;

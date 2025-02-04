@@ -13,6 +13,7 @@ export const Modal = ({ id, closeModal }) => {
   const [commentsData] = useCommentsData(id);
   const [post, comments] = commentsData;
 
+  console.log(111111);
   const handleClick = (e) => {
     const target = e.target;
     if (target === overlayRef.current) {

@@ -48,21 +48,3 @@ export const authRequestAsync = () => (dispatch, getState) => {
     });
 };
 
-export const postRequestAsync = (dispatch, getState, { setPosts }) => {
-  const token = getState().token.token;
-
-  if (!token) return;
-
-  axios(`${URL_API}/best`, {
-    headers: {
-      Authorization: `bearer ${token}`,
-    },
-  })
-    .then(({ data: postData }) => {
-      postData.data.children.map((item) => item.data);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-};
-
