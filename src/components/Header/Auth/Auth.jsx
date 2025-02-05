@@ -7,7 +7,7 @@ import { ReactComponent as LoginIcon } from './img/login.svg';
 import { useDispatch } from 'react-redux';
 import { deleteToken } from '../../../store/tokenReducer';
 import { useAuth } from '../../../hooks/useAuth';
-import { AuthLoader } from './AuthLoader/AuthLoader';
+import { AuthLoader } from '../../../UI/AuthLoader/AuthLoader';
 
 export const Auth = () => {
   const [logout, setLogout] = useState(false);

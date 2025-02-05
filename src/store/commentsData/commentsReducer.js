@@ -5,8 +5,9 @@ import {
 } from './commentsAction';
 
 const initialState = {
-  data: {},
-  comments: {},
+  status: '',
+  post: null,
+  comments: [],
   error: '',
 };
 
@@ -15,22 +16,23 @@ export const commentsReducer = (state = initialState, action) => {
     case COMMENTS_REQUEST:
       return {
         ...state,
-        data: {},
-        comments: {},
+        status: 'loading',
+        post: {},
+        comments: [],
         error: '',
       };
     case COMMENTS_REQUEST_SUCCESS:
       return {
         ...state,
-        data: action.data,
+        status: 'loaded',
+        post: action.post,
         comments: action.comments,
         error: '',
       };
     case COMMENTS_REQUEST_ERROR:
       return {
         ...state,
-        data: {},
-        comments: {},
+        status: 'error',
         error: action.err,
       };
     default:
