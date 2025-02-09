@@ -2,15 +2,16 @@ import style from './Auth.module.css';
 import PropTypes from 'prop-types';
 import { urlAuth } from '../../../api/auth';
 import { Text } from '../../../UI/Text';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { ReactComponent as LoginIcon } from './img/login.svg';
-import { authContext } from '../../../context/authContext';
 import { useDispatch } from 'react-redux';
-import { deleteToken } from '../../../store';
+import { deleteToken } from '../../../store/tokenReducer';
+import { useAuth } from '../../../hooks/useAuth';
+import { AuthLoader } from '../../../UI/AuthLoader/AuthLoader';
 
 export const Auth = () => {
-  const { auth, clearAuth } = useContext(authContext);
   const [logout, setLogout] = useState(false);
+  const [auth, loading, clearAuth] = useAuth();
   const dispatch = useDispatch();
 
   const logoutBtn = () => {
@@ -20,12 +21,13 @@ export const Auth = () => {
   const loginOut = () => {
     dispatch(deleteToken());
     clearAuth();
-    window.location.href = 'http://localhost:3000/auth';
   };
 
   return (
     <div className={style.container}>
-      {auth.name ? (
+      {loading ? (
+        <AuthLoader />
+        ) : auth.name ? (
         <>
           <button className={style.btn} onClick={logoutBtn}>
             <img

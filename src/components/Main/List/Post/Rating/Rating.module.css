@@ -19,10 +19,12 @@
   background-size: 100%;
   transition: background-color 0.36s ease-in-out;
 }
+
 .up:active,
 .down:active {
   background-color: #ff9966;
 }
+
 .up {
   background-image: url('./img/up.svg');
 }

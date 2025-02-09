@@ -21,12 +21,12 @@ export const Text = prop => {
   const classes = classNames(
     className,
     style[color],
-    {[style.medium]: medium},
-    {[style.bold]: bold},
-    {[style.center]: center},
-    {[style[`fs${size}`]]: size},
-    {[style[`fst${tsize}`]]: tsize},
-    {[style[`fsd${dsize}`]]: dsize},
+    { [style.medium]: medium },
+    { [style.bold]: bold },
+    { [style.center]: center },
+    { [style[`fs${size}`]]: size },
+    { [style[`fst${tsize}`]]: tsize },
+    { [style[`fsd${dsize}`]]: dsize },
   );
 
 

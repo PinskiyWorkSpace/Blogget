@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import style from './Content.module.css';
-import {Text} from '../../../../../UI/Text/Text';
-import {useState} from 'react';
+import { Text } from '../../../../../UI/Text/Text';
+import { useState } from 'react';
 import Modal from '../../../../Modal';
 
-export const Content = ({title, author, id}) => {
+export const Content = ({ title, author, id }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (

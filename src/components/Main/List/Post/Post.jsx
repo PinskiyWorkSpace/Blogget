@@ -7,7 +7,7 @@ import DatePost from './DatePost';
 import BtnDelete from './BtnDelete';
 
 
-export const Post = ({postData}) => {
+export const Post = ({ postData }) => {
   const {
     id,
     title,
@@ -20,10 +20,10 @@ export const Post = ({postData}) => {
   return (
 
     <li className={style.post}>
-      <ImagePost title={title} thumbnail={thumbnail}/>
-      <Content title={title} author={author} id={id}/>
-      <Rating ups={ups}/>
-      <DatePost date={date}/>
+      <ImagePost title={title} thumbnail={thumbnail} />
+      <Content title={title} author={author} id={id} />
+      <Rating ups={ups} />
+      <DatePost date={date} />
       <BtnDelete />
     </li>
   );
