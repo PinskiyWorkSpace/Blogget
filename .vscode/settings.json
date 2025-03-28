@@ -1,2 +1,5 @@
 {
+  "editor.tokenColorCustomizations": {
+    "semanticHighlighting": false
+  },
 }
