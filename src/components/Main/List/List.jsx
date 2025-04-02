@@ -1,20 +1,44 @@
-import { Text } from '../../../UI/Text';
 import style from './List.module.css';
 import Post from './Post';
-import { usePosts } from '../../../hooks/usePosts';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { postsRequestAsync } from '../../../store/post/postAction';
+import { Outlet, useParams } from 'react-router-dom';
 
 export const List = () => {
-  const [posts] = usePosts();
+  const postsData = useSelector(state => state.posts.posts);
+  const endList = useRef(null);
+  const dispatch = useDispatch();
+  const { page } = useParams();
 
+  useEffect(() => {
+    dispatch(postsRequestAsync(page));
+  }, [page]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        dispatch(postsRequestAsync());
+      }
+    }, {
+      rootMargin: '100px'
+    });
+
+    observer.observe(endList.current);
+
+    return () => {
+      if (endList.current) {
+        observer.unobserve(endList.current);
+      }
+    };
+  }, [endList.current]);
   return (
     <ul className={style.list}>
-      {posts && posts.length > 0 ? (
-        posts.map(({ data: postData }) => (
-          <Post key={postData.id} postData={postData} />
-        ))
-      ) : (
-        <Text As='p'>Авторизуйтесь</Text>
-      )}
+      {postsData.map(({ data: postData }) => (
+        <Post key={postData.id} postData={postData} />
+      ))}
+      <li ref={endList} className={style.end} />
+      <Outlet />
     </ul>
   );
 };

@@ -8,25 +8,29 @@ import { useCommentsData } from '../../hooks/useCommentsData';
 import Comments from './Comments';
 import FormComment from './FormComment';
 import CommentsLoader from '../../UI/CommentsLoader';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export const Modal = ({ id, closeModal }) => {
+export const Modal = () => {
+  const { id, page } = useParams();
+  const navigate = useNavigate();
   const overlayRef = useRef(null);
   const { post, comments, status } = useCommentsData(id);
 
   const handleClick = (e) => {
     const target = e.target;
     if (target === overlayRef.current) {
-      closeModal();
+      // closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
   const handleCloseClick = () => {
-    closeModal();
+    navigate(`/category/${page}`);
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Escape' || e.key === 'Esc') {
-      closeModal();
+      navigate(`/category/${page}`);
     }
   };
 
