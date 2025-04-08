@@ -1,9 +1,9 @@
-import style from './List.module.css';
-import Post from './Post';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postsRequestAsync } from '../../../store/post/postAction';
 import { Outlet, useParams } from 'react-router-dom';
+import style from './List.module.css';
+import Post from './Post';
+import { fetchPosts, changePage } from '../../../store/post/postAction';
 
 export const List = () => {
   const postsData = useSelector(state => state.posts.posts);
@@ -12,26 +12,33 @@ export const List = () => {
   const { page } = useParams();
 
   useEffect(() => {
-    dispatch(postsRequestAsync(page));
-  }, [page]);
+    if (page) {
+      console.log('Dispatching fetchPosts with:', page);
+      dispatch(changePage(page));
+      dispatch(fetchPosts(page));
+    }
+  }, [page, dispatch]);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        dispatch(postsRequestAsync());
+        dispatch(fetchPosts());
       }
     }, {
       rootMargin: '100px'
     });
 
-    observer.observe(endList.current);
+    if (endList.current) {
+      observer.observe(endList.current);
+    }
 
     return () => {
       if (endList.current) {
         observer.unobserve(endList.current);
       }
     };
-  }, [endList.current]);
+  }, [endList.current, dispatch, page]);
+
   return (
     <ul className={style.list}>
       {postsData.map(({ data: postData }) => (
@@ -42,4 +49,3 @@ export const List = () => {
     </ul>
   );
 };
-
