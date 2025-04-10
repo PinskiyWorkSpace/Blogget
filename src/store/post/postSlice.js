@@ -1,44 +1,49 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchPosts, changePage } from './postAction'; // Import changePage
+import { postsRequestAsync } from './postAction';
 
-const postsSlice = createSlice({
+const initialState = {
+  loading: false,
+  posts: [],
+  error: null,
+  after: '',
+  isLast: false,
+  page: '',
+};
+
+export const postsSlice = createSlice({
   name: 'posts',
-  initialState: {
-    loading: false,
-    posts: [],
-    error: null,
-    after: '',
-    isLast: false,
-    page: null,
-  },
-  reducers: {
-  },
-  extraReducers: (builder) => {
+  initialState,
+  reducers: {},
+  extraReducers: builder => {
     builder
-      .addCase(fetchPosts.pending, (state) => {
+      .addCase(postsRequestAsync.pending, state => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(fetchPosts.fulfilled, (state, action) => {
+      .addCase(postsRequestAsync.fulfilled, (state, action) => {
         state.loading = false;
-        if (state.after) {
-          state.posts = [...state.posts, ...action.payload.children];
-        } else {
+        state.error = null;
+        if (state.page !== action.payload.page) {
           state.posts = action.payload.children;
+          state.after = '';
+          state.isLast = false;
+        } else {
+          if (state.after) {
+            state.posts = [...state.posts, ...action.payload.children];
+          } else {
+            state.posts = action.payload.children;
+          }
         }
+
         state.after = action.payload.after;
-        state.isLast = !action.payload.after;
+        state.isLast = !action.payload.isLast;
+        state.page = action.payload.page;
       })
-      .addCase(fetchPosts.rejected, (state, action) => {
+      .addCase(postsRequestAsync.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
-      })
-      .addCase(changePage.fulfilled, (state, action) => {
-        state.page = action.payload;
-        state.after = '';
-        state.isLast = false;
       });
   },
 });
 
-export const postsReducer = postsSlice.reducer;
+export default postsSlice.reducer;

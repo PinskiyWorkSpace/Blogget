@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, useParams } from 'react-router-dom';
 import style from './List.module.css';
 import Post from './Post';
-import { fetchPosts, changePage } from '../../../store/post/postAction';
+import { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { postsRequestAsync } from '../../../store/post/postAction';
+import { Outlet, useParams } from 'react-router-dom';
 
 export const List = () => {
   const postsData = useSelector(state => state.posts.posts);
@@ -12,32 +12,27 @@ export const List = () => {
   const { page } = useParams();
 
   useEffect(() => {
-    if (page) {
-      console.log('Dispatching fetchPosts with:', page);
-      dispatch(changePage(page));
-      dispatch(fetchPosts(page));
-    }
-  }, [page, dispatch]);
+    dispatch(postsRequestAsync(page));
+  }, [dispatch, page]);
+
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        dispatch(fetchPosts());
+        dispatch(postsRequestAsync());
       }
     }, {
       rootMargin: '100px'
     });
 
-    if (endList.current) {
-      observer.observe(endList.current);
-    }
+    observer.observe(endList.current);
 
     return () => {
       if (endList.current) {
         observer.unobserve(endList.current);
       }
     };
-  }, [endList.current, dispatch, page]);
+  }, [endList.current]);
 
   return (
     <ul className={style.list}>
