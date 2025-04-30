@@ -13,7 +13,8 @@ export const List = () => {
 
   useEffect(() => {
     dispatch(postsRequestAsync(page));
-  }, [page]);
+  }, [dispatch, page]);
+
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -32,6 +33,7 @@ export const List = () => {
       }
     };
   }, [endList.current]);
+
   return (
     <ul className={style.list}>
       {postsData.map(({ data: postData }) => (
@@ -42,4 +44,3 @@ export const List = () => {
     </ul>
   );
 };
-
